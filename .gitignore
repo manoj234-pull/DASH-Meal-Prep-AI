@@ -1,0 +1,52 @@
+# Credentials: commit only the blank template.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Generated databases, PDF-derived data, and runtime reports
+*.sqlite*
+*.db
+*.db-*
+reports/
+*.log
+*.jsonl
+
+# Private source documents (provide separately for ingestion)
+*.pdf
+
+# Local editor / OS settings
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Build, coverage, and temporary exports
+build/
+dist/
+*.egg-info/
+.coverage
+htmlcov/
+*.zip
+*.bak
+*.tmp
+
+# Superseded design illustrations; keep the implemented architecture image
+/dash-database-explained.png
+/dash-lightweight-prototype.png
+
+# User-supplied source documents and their local folder
+source_pdfs/
