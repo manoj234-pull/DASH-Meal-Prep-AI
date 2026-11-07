@@ -24,7 +24,7 @@ reports/
 *.log
 *.jsonl
 
-# Private source documents (provide separately for ingestion)
+# Ignore PDFs except the two official source publications below
 *.pdf
 
 # Local editor / OS settings
@@ -48,5 +48,6 @@ htmlcov/
 /dash-database-explained.png
 /dash-lightweight-prototype.png
 
-# User-supplied source documents and their local folder
-source_pdfs/
+# Only the approved original publications are included. Other PDFs stay ignored.
+!source_pdfs/Your Guide to Lowering Your Blood Pressure With DASH.pdf
+!source_pdfs/A Week With the DASH Eating Plan.pdf
