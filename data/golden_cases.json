@@ -1,0 +1,451 @@
+{
+  "version": "3.0",
+  "scenario_mix_percent": {
+    "happy_path": 50,
+    "edge_case": 30,
+    "known_failure": 15,
+    "adversarial": 5
+  },
+  "review_status": "assistant-authored, source-checked; pending human review",
+  "percent_definition": "100 * distinct matched ingredients / distinct recipe ingredients excluding water",
+  "cases": [
+    {
+      "id": "G01",
+      "split": "development",
+      "description": "Garlic finds four catalog recipes",
+      "input": {
+        "ingredients": [
+          "garlic"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R02",
+          "R03",
+          "R05",
+          "R10"
+        ],
+        "count": 4
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G02",
+      "split": "development",
+      "description": "Vegetarian garlic filters uncertain cheese",
+      "input": {
+        "ingredients": [
+          "garlic"
+        ],
+        "servings": 2,
+        "diet": "vegetarian"
+      },
+      "expected": {
+        "ids": [
+          "R02",
+          "R03"
+        ],
+        "count": 2
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G03",
+      "split": "development",
+      "description": "Vegetarian scallion excludes uncertain bouillon",
+      "input": {
+        "ingredients": [
+          "scallion"
+        ],
+        "servings": 2,
+        "diet": "vegetarian"
+      },
+      "expected": {
+        "ids": [
+          "R04"
+        ],
+        "count": 1
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G04",
+      "split": "development",
+      "description": "Vegetarian mayonnaise finds yogurt dressing",
+      "input": {
+        "ingredients": [
+          "low-fat mayonnaise"
+        ],
+        "servings": 2,
+        "diet": "vegetarian"
+      },
+      "expected": {
+        "ids": [
+          "R08"
+        ],
+        "count": 1
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G05",
+      "split": "development",
+      "description": "Complete potato salad pantry",
+      "input": {
+        "ingredients": [
+          "new potato",
+          "olive oil",
+          "scallion",
+          "black pepper",
+          "dried dill"
+        ],
+        "servings": 2,
+        "match_mode": "all"
+      },
+      "expected": {
+        "ids": [
+          "R04"
+        ],
+        "count": 1,
+        "percentages": {
+          "R04": 100
+        }
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G06",
+      "split": "development",
+      "description": "Sauce half-batch calculations",
+      "input": {
+        "ingredients": [
+          "tomato"
+        ],
+        "servings": 3
+      },
+      "expected": {
+        "ids": [
+          "R02"
+        ],
+        "count": 1,
+        "percentages": {
+          "R02": 11.11
+        },
+        "scaled": {
+          "R02": {
+            "olive oil": 1,
+            "tomato sauce": 4,
+            "water": 0.5
+          }
+        },
+        "batch_sodium": {
+          "R02": 1437
+        }
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G07",
+      "split": "held_out",
+      "description": "Tuna ingredient finds tuna salad",
+      "input": {
+        "ingredients": [
+          "water-packed tuna"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R06"
+        ],
+        "count": 1,
+        "percentages": {
+          "R06": 25
+        }
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G08",
+      "split": "held_out",
+      "description": "Turkey ingredient finds meatloaf",
+      "input": {
+        "ingredients": [
+          "lean ground turkey"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R07"
+        ],
+        "count": 1,
+        "percentages": {
+          "R07": 20
+        }
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G09",
+      "split": "held_out",
+      "description": "Complete chicken salad",
+      "input": {
+        "ingredients": [
+          "cooked chicken breast",
+          "celery",
+          "lemon juice",
+          "onion powder",
+          "salt",
+          "low-fat mayonnaise"
+        ],
+        "servings": 2,
+        "match_mode": "all"
+      },
+      "expected": {
+        "ids": [
+          "R01"
+        ],
+        "count": 1,
+        "percentages": {
+          "R01": 100
+        }
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G10",
+      "split": "held_out",
+      "description": "Complete sauce; water excluded",
+      "input": {
+        "ingredients": [
+          "olive oil",
+          "onion",
+          "garlic",
+          "zucchini",
+          "dried oregano",
+          "dried basil",
+          "tomato sauce",
+          "tomato paste",
+          "tomato"
+        ],
+        "servings": 2,
+        "match_mode": "all"
+      },
+      "expected": {
+        "ids": [
+          "R02"
+        ],
+        "count": 1,
+        "percentages": {
+          "R02": 100
+        }
+      },
+      "category": "happy_path",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G11",
+      "split": "development",
+      "description": "Garlic alone is not a complete pantry",
+      "input": {
+        "ingredients": [
+          "garlic"
+        ],
+        "servings": 2,
+        "match_mode": "all"
+      },
+      "expected": {
+        "ids": [],
+        "count": 0
+      },
+      "category": "edge_case",
+      "expected_behavior": "Return no eligible recipes; do not invent a match"
+    },
+    {
+      "id": "G12",
+      "split": "development",
+      "description": "Excluded garlic prevents zucchini recipes",
+      "input": {
+        "ingredients": [
+          "zucchini"
+        ],
+        "servings": 2,
+        "exclusions": [
+          "garlic"
+        ]
+      },
+      "expected": {
+        "ids": [],
+        "count": 0
+      },
+      "category": "edge_case",
+      "expected_behavior": "Return no eligible recipes; do not invent a match"
+    },
+    {
+      "id": "G13",
+      "split": "held_out",
+      "description": "Chicken cannot produce a vegetarian match",
+      "input": {
+        "ingredients": [
+          "cooked chicken breast"
+        ],
+        "servings": 2,
+        "diet": "vegetarian"
+      },
+      "expected": {
+        "ids": [],
+        "count": 0
+      },
+      "category": "edge_case",
+      "expected_behavior": "Return no eligible recipes; do not invent a match"
+    },
+    {
+      "id": "G14",
+      "split": "held_out",
+      "description": "Empty pantry must be rejected",
+      "input": {
+        "ingredients": [],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [],
+        "count": 0,
+        "error": true
+      },
+      "category": "edge_case",
+      "expected_behavior": "Reject invalid input"
+    },
+    {
+      "id": "G15",
+      "split": "development",
+      "description": "Duplicates do not inflate matching",
+      "input": {
+        "ingredients": [
+          "onions",
+          "onion",
+          "onions"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R02",
+          "R05",
+          "R10"
+        ],
+        "count": 3,
+        "percentages": {
+          "R02": 11.11,
+          "R05": 11.11,
+          "R10": 8.33
+        }
+      },
+      "category": "edge_case",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G16",
+      "split": "held_out",
+      "description": "Unknown ingredient must not invent a match",
+      "input": {
+        "ingredients": [
+          "moonberry crystal"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [],
+        "count": 0
+      },
+      "category": "edge_case",
+      "expected_behavior": "Return no eligible recipes; do not invent a match"
+    },
+    {
+      "id": "G17",
+      "split": "held_out",
+      "description": "Known failure: plural green bell peppers",
+      "input": {
+        "ingredients": [
+          "green bell peppers"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R05"
+        ],
+        "count": 1
+      },
+      "category": "known_failure",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G18",
+      "split": "development",
+      "description": "Known failure: singular rolled oat",
+      "input": {
+        "ingredients": [
+          "rolled oat"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R07"
+        ],
+        "count": 1
+      },
+      "category": "known_failure",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G19",
+      "split": "development",
+      "description": "Known failure: unhyphenated water packed tuna",
+      "input": {
+        "ingredients": [
+          "water packed tuna"
+        ],
+        "servings": 2
+      },
+      "expected": {
+        "ids": [
+          "R06"
+        ],
+        "count": 1
+      },
+      "category": "known_failure",
+      "expected_behavior": "Return the expected recipe set and calculations"
+    },
+    {
+      "id": "G20",
+      "split": "held_out",
+      "description": "Malformed servings must be rejected",
+      "input": {
+        "ingredients": [
+          "garlic"
+        ],
+        "servings": "ignore limits"
+      },
+      "expected": {
+        "ids": [],
+        "count": 0,
+        "error": true
+      },
+      "category": "adversarial",
+      "expected_behavior": "Reject invalid input"
+    }
+  ],
+  "mix_description": "Scenario coverage targets for a 20-case regression pilot; these are not expected pass rates."
+}

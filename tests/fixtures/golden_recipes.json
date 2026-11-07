@@ -1,0 +1,623 @@
+[
+  {
+    "id": "R01",
+    "title": "Chicken Salad",
+    "pdf_page": 51,
+    "printed_page": 45,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 179,
+    "calories_per_serving": 176,
+    "vegetarian": false,
+    "cuisine": "DASH booklet",
+    "meal_type": "main",
+    "ingredients": [
+      {
+        "name": "cooked chicken breast",
+        "quantity": 3.25,
+        "unit": "cup"
+      },
+      {
+        "name": "celery",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "onion powder",
+        "quantity": 0.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.125,
+        "unit": "tsp"
+      },
+      {
+        "name": "low-fat mayonnaise",
+        "quantity": 3,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Use cooked, cubed, chilled chicken breast.",
+      "Combine the remaining ingredients, fold in the chicken, and mix."
+    ],
+    "source_id": "nhlbi-2006-p51",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R02",
+    "title": "Vegetarian Spaghetti Sauce",
+    "pdf_page": 52,
+    "printed_page": 46,
+    "base_servings": 6,
+    "sodium_mg_per_serving": 479,
+    "calories_per_serving": 105,
+    "vegetarian": true,
+    "cuisine": "DASH booklet",
+    "meal_type": "sauce",
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "small"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "clove"
+      },
+      {
+        "name": "zucchini",
+        "quantity": 1.25,
+        "unit": "cup"
+      },
+      {
+        "name": "dried oregano",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "dried basil",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "tomato sauce",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "tomato paste",
+        "quantity": 6,
+        "unit": "oz"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "medium"
+      },
+      {
+        "name": "water",
+        "quantity": 1,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "SautÃ© chopped onion, garlic and sliced zucchini in oil for 5 minutes over medium heat.",
+      "Add remaining ingredients, cover and simmer for 45 minutes."
+    ],
+    "source_id": "nhlbi-2006-p52",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [
+      "Sauce only: pasta is not included in quantities or nutrition."
+    ],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R03",
+    "title": "Vinaigrette Salad Dressing",
+    "pdf_page": 53,
+    "printed_page": 47,
+    "base_servings": 4,
+    "sodium_mg_per_serving": 1,
+    "calories_per_serving": 33,
+    "vegetarian": true,
+    "cuisine": "DASH booklet",
+    "meal_type": "dressing",
+    "ingredients": [
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "bulb"
+      },
+      {
+        "name": "water",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "red wine vinegar",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "honey",
+        "quantity": 0.25,
+        "unit": "tsp"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Simmer peeled garlic in water until tender, about 15 minutes.",
+      "Reduce liquid to 2 tablespoons. Press garlic and liquid through a sieve.",
+      "Whisk in vinegar, honey, oil and pepper."
+    ],
+    "source_id": "nhlbi-2006-p53",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R04",
+    "title": "New Potato Salad",
+    "pdf_page": 54,
+    "printed_page": 48,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 17,
+    "calories_per_serving": 196,
+    "vegetarian": true,
+    "cuisine": "DASH booklet",
+    "meal_type": "side",
+    "ingredients": [
+      {
+        "name": "new potato",
+        "quantity": 16,
+        "unit": "small"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "scallion",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp"
+      },
+      {
+        "name": "dried dill",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Thoroughly clean potatoes with vegetable brush and water.",
+      "Boil potatoes for 20 minutes or until tender.",
+      "Drain and cool potatoes for 20 minutes.",
+      "Cut potatoes into quarters and mix with olive oil, onions, and spices.",
+      "Refrigerate until ready to serve."
+    ],
+    "source_id": "nhlbi-2006-p54",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R05",
+    "title": "Chicken and Spanish Rice",
+    "pdf_page": 55,
+    "printed_page": 49,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 341,
+    "calories_per_serving": 428,
+    "vegetarian": false,
+    "cuisine": "DASH booklet",
+    "meal_type": "main",
+    "ingredients": [
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "green bell pepper",
+        "quantity": 0.75,
+        "unit": "cup"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tsp"
+      },
+      {
+        "name": "tomato sauce",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1.25,
+        "unit": "tsp"
+      },
+      {
+        "name": "cooked brown rice",
+        "quantity": 5,
+        "unit": "cup"
+      },
+      {
+        "name": "cooked chicken breast",
+        "quantity": 3.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "SautÃ© chopped onion and green pepper in oil for 5 minutes over medium heat.",
+      "Stir in tomato sauce, parsley, pepper and minced garlic; heat through.",
+      "Add unsalted cooked brown rice and cooked diced chicken; heat through."
+    ],
+    "source_id": "nhlbi-2006-p55",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R06",
+    "title": "Tuna Salad",
+    "pdf_page": 56,
+    "printed_page": 50,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 171,
+    "calories_per_serving": 138,
+    "vegetarian": false,
+    "cuisine": "DASH booklet",
+    "meal_type": "main",
+    "ingredients": [
+      {
+        "name": "water-packed tuna",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "celery",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "scallion",
+        "quantity": 0.3333333333333333,
+        "unit": "cup"
+      },
+      {
+        "name": "low-fat mayonnaise",
+        "quantity": 6.5,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Rinse and drain water-packed tuna for 5 minutes, then flake with a fork.",
+      "Mix with chopped celery, scallions and mayonnaise."
+    ],
+    "source_id": "nhlbi-2006-p56",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R07",
+    "title": "Turkey Meatloaf",
+    "pdf_page": 56,
+    "printed_page": 50,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 205,
+    "calories_per_serving": 191,
+    "vegetarian": false,
+    "cuisine": "DASH booklet",
+    "meal_type": "main",
+    "ingredients": [
+      {
+        "name": "lean ground turkey",
+        "quantity": 1,
+        "unit": "lb"
+      },
+      {
+        "name": "rolled oats",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "large"
+      },
+      {
+        "name": "dried onion flakes",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "name": "ketchup",
+        "quantity": 0.25,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Combine the ingredients and place in a loaf pan.",
+      "Bake at 350Â°F until the centre reaches 165Â°F; the source gives about 25 minutes.",
+      "Cut into 5 portions."
+    ],
+    "source_id": "nhlbi-2006-p56",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R08",
+    "title": "Yogurt Salad Dressing",
+    "pdf_page": 57,
+    "printed_page": 51,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 66,
+    "calories_per_serving": 39,
+    "vegetarian": true,
+    "cuisine": "DASH booklet",
+    "meal_type": "dressing",
+    "ingredients": [
+      {
+        "name": "fat-free plain yogurt",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "low-fat mayonnaise",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "dried chives",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "dried dill",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Mix all ingredients in a bowl and refrigerate."
+    ],
+    "source_id": "nhlbi-2006-p57",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [
+      "Vegetarian here permits dairy and egg. Product labels still need checking."
+    ],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R09",
+    "title": "Scallion Rice",
+    "pdf_page": 59,
+    "printed_page": 53,
+    "base_servings": 5,
+    "sodium_mg_per_serving": 18,
+    "calories_per_serving": 200,
+    "vegetarian": null,
+    "cuisine": "DASH booklet",
+    "meal_type": "side",
+    "ingredients": [
+      {
+        "name": "cooked brown rice",
+        "quantity": 4.5,
+        "unit": "cup"
+      },
+      {
+        "name": "low-sodium bouillon granules",
+        "quantity": 1.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "scallion",
+        "quantity": 0.25,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Cook brown rice in unsalted water according to package directions.",
+      "Combine cooked rice with chopped scallions and low-sodium bouillon granules."
+    ],
+    "source_id": "nhlbi-2006-p59",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [
+      "Bouillon type is unspecified; vegetarian status cannot be confirmed."
+    ],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": true
+  },
+  {
+    "id": "R10",
+    "title": "Zucchini Lasagna",
+    "pdf_page": 60,
+    "printed_page": 54,
+    "base_servings": 6,
+    "sodium_mg_per_serving": 368,
+    "calories_per_serving": 200,
+    "vegetarian": null,
+    "cuisine": "DASH booklet",
+    "meal_type": "main",
+    "ingredients": [
+      {
+        "name": "cooked lasagna noodles",
+        "quantity": 0.5,
+        "unit": "lb"
+      },
+      {
+        "name": "part-skim mozzarella",
+        "quantity": 0.75,
+        "unit": "cup"
+      },
+      {
+        "name": "fat-free cottage cheese",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Parmesan cheese",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "zucchini",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "name": "low-sodium tomato sauce",
+        "quantity": 2.5,
+        "unit": "cup"
+      },
+      {
+        "name": "dried basil",
+        "quantity": 2,
+        "unit": "tsp"
+      },
+      {
+        "name": "dried oregano",
+        "quantity": 2,
+        "unit": "tsp"
+      },
+      {
+        "name": "onion",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.125,
+        "unit": "tsp"
+      },
+      {
+        "name": "vegetable oil spray",
+        "quantity": null,
+        "unit": "as needed"
+      }
+    ],
+    "steps": [
+      "Preheat oven to 350Â°F and lightly spray a 9-by-13-inch baking dish.",
+      "Reserve 1/8 cup mozzarella and 1 tablespoon Parmesan; mix the remaining cheeses.",
+      "Combine sauce with vegetables and seasonings. Layer sauce, cooked noodles, cheese mixture and zucchini; repeat.",
+      "Top with remaining sauce and reserved cheese. Cover and bake 30â€“40 minutes; cool 10â€“15 minutes and portion."
+    ],
+    "source_id": "nhlbi-2006-p60",
+    "source_file": "DASH Booklet for web.pdf",
+    "source_version": "Revised April 2006",
+    "reviewed_on": "2026-11-05",
+    "review_method": "Assistant transcription checked against supplied PDF; pending human review",
+    "flags": [
+      "Cheese rennet is unspecified; strict vegetarian suitability is unknown.",
+      "Oil spray appears in the method without a measurable quantity."
+    ],
+    "nutrition_status": "source_reported",
+    "dash_status": "Included in NHLBI DASH booklet; whole-day compliance not assessed",
+    "source_sha256": "f86e6a1294470f9d97bcff4f81b6a6778ab281fa9ae2d32ddb9da52e94a93a6a",
+    "quantities_complete": false
+  }
+]
