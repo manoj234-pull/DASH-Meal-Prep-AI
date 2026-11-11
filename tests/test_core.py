@@ -14,6 +14,30 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(m['required_count'], 3)
         self.assertAlmostEqual(m['match_percent'], 66.67)
 
+    def test_common_ingredient_name_matches_specific_recipe_label(self):
+        recipe={'ingredients':[{'name':'cooked chicken breast','quantity':1,'unit':'cup'},
+                               {'name':'garlic, minced','quantity':1,'unit':'clove'}]}
+        match=ingredient_match(recipe,['chicken','garlic'])
+        self.assertEqual(match['matched_count'],2)
+        self.assertEqual(match['missing'],[])
+        self.assertEqual(match['pantry_match_percent'],100)
+
+    def test_pantry_match_percent_measures_user_ingredients_used(self):
+        recipe={'ingredients':[{'name':'olive oil','quantity':1,'unit':'tbsp'},
+                               {'name':'salmon','quantity':1,'unit':'fillet'}]}
+        match=ingredient_match(recipe,['chicken','garlic','olive oil'])
+        self.assertAlmostEqual(match['pantry_match_percent'],33.33)
+
+    def test_whole_words_prevent_egg_matching_eggplant(self):
+        recipe={'ingredients':[{'name':'eggplant','quantity':1,'unit':'cup'}]}
+        match=ingredient_match(recipe,['egg'])
+        self.assertEqual(match['matched_count'],0)
+
+    def test_generic_matching_has_no_food_specific_exceptions(self):
+        recipe={'ingredients':[{'name':'low-sodium chicken broth','quantity':1,'unit':'cup'}]}
+        match=ingredient_match(recipe,['chicken'])
+        self.assertEqual(match['matched_count'],1)
+
     def test_scaling(self):
         r = {'base_servings': 4, 'ingredients': [{'name': 'lentils', 'quantity': 200, 'unit': 'g'}]}
         self.assertEqual(scale_recipe(r, 6)[0]['quantity'], 300)

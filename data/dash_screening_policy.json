@@ -1,0 +1,19 @@
+{
+  "version": "demo-day-screen-v1",
+  "max_sodium_mg_per_source_serving": 600,
+  "max_saturated_fat_g_per_source_serving": 3,
+  "require_complete_quantities_and_method": true,
+  "purpose": "Conservative recipe shortlist for assembling a DASH eating pattern, not clinical certification or a full-day plan",
+  "threshold_basis": "Application screening limits chosen conservatively for the prototype; not official NHLBI per-recipe cutoffs",
+  "guidance_url": "https://www.nhlbi.nih.gov/health/dash-eating-plan",
+  "guidance": [
+    "Favor vegetables, fruits, grains (especially whole grains), legumes, low-fat dairy, lean proteins, and vegetable oils.",
+    "Limit saturated fats, sweetened beverages and sweets.",
+    "Daily sodium and food-group targets must be checked separately at plan level."
+  ],
+  "excluded_for_this_shortlist": [
+    "Desserts and sugar-sweetened beverages",
+    "Recipes requiring unsupported substitutions or nutrition recalculation",
+    "Unverified amounts, missing cooking steps, or missing sodium/saturated-fat values"
+  ]
+}

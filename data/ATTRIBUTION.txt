@@ -1,0 +1,13 @@
+NHLBI sources:
+Source: National Heart, Lung, and Blood Institute; National Institutes of Health; U.S. Department of Health and Human Services.
+Original publications are retained unchanged. No NHLBI endorsement is implied, and no separate logo assets are used.
+Reuse policy: https://www.nhlbi.nih.gov/about/contact/trademark-branding-and-logo
+
+USDA sources:
+U.S. Department of Agriculture, Agricultural Research Service. FoodData Central.
+SR Legacy (April 2018) and Foundation Foods (October 2026).
+Public domain, CC0 1.0. https://fdc.nal.usda.gov/api-guide/
+
+See data_sources.json for exact URLs, releases, checksums, and the purpose of each source.
+Cuisine tags marked inferred are application metadata, not claims made by NHLBI.
+Food nutrient records and recipe candidates are not evidence that a whole meal plan meets DASH targets.

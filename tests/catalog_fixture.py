@@ -7,7 +7,8 @@ from dash_app import core
 from dash_app.ingestion import schema,store_recipe
 @contextmanager
 def catalog_fixture():
-    with tempfile.TemporaryDirectory() as tmp:
+    (core.ROOT/'reports').mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=core.ROOT/'reports') as tmp:
         db=Path(tmp)/'golden.sqlite'
         with closing(sqlite3.connect(db)) as c,c:
             schema(c)

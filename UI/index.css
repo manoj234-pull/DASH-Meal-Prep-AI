@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background: #180e07;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #180e07;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3d2217;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.culinary-shell { position: relative; min-height: 100vh; overflow-x: hidden; color: #fffaf5; background: radial-gradient(circle at 50% 22%, rgba(113,57,24,.28), transparent 34rem), linear-gradient(135deg,#120905 0%,#241107 52%,#110805 100%); }
+.culinary-shell::after { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .12; background-image: repeating-linear-gradient(135deg,rgba(255,255,255,.04) 0 1px,transparent 1px 10px); }
+.culinary-shell-glow { position: fixed; inset: 0; pointer-events: none; box-shadow: inset 0 0 160px rgba(0,0,0,.7); }
+.culinary-shell-inner { position: relative; z-index: 1; width: min(1180px,calc(100% - 32px)); min-height: 100vh; margin: 0 auto; display: flex; flex-direction: column; }
+.culinary-brand-bar { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid rgba(245,158,11,.16); }
+.culinary-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }.culinary-brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px; color: #251208; background: #f5a300; box-shadow: 0 8px 24px rgba(245,158,11,.2); }
+.culinary-brand strong { display: block; font-family: Georgia,serif; font-size: 17px; color: #fffaf4; }.culinary-brand small { display: block; margin-top: 2px; color: #f3a617; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.culinary-controls { display: flex; align-items: center; gap: 8px; }.culinary-mode-switch { display: flex; gap: 3px; padding: 4px; border: 1px solid rgba(245,158,11,.25); border-radius: 999px; background: rgba(15,7,3,.55); }
+.culinary-mode-switch button,.culinary-audio-button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 27px; padding: 0 10px; border: 0; border-radius: 999px; color: #d7c6ba; background: transparent; font-size: 10px; font-weight: 700; cursor: pointer; }
+.culinary-mode-switch button.is-active { color: #281207; background: #f5a300; box-shadow: 0 0 0 2px rgba(245,163,0,.2); }.culinary-audio-button { border: 1px solid rgba(245,158,11,.25); background: rgba(15,7,3,.55); color: #f4c165; }
+.culinary-main-stage { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 28px 0 22px; }.culinary-plate-stage { width: 100%; text-align: center; }
+.culinary-kicker { display: inline-flex; padding: 6px 16px; border: 1px solid rgba(245,158,11,.32); border-radius: 999px; background: rgba(245,158,11,.12); color: #f7b32b; font-size: 10px; font-weight: 700; }
+.culinary-plate-stage h1 { margin: 10px 0 4px; font-family: Georgia,serif; font-size: clamp(30px,4vw,46px); line-height: 1; }.culinary-plate-stage>p { margin: 0 auto; max-width: 520px; color: #d0beb3; font-size: 12px; }
+.culinary-current-plan { display: inline-flex; margin-top: 16px; padding: 7px 14px; border: 1px solid rgba(245,158,11,.18); border-radius: 999px; color: #d8c5b7; background: rgba(20,9,5,.55); font-size: 10px; }
+.culinary-plate-wrap { position: relative; display: flex; align-items: center; justify-content: center; width: min(760px,100%); min-height: 480px; margin: 2px auto 0; user-select: none; }
+.culinary-plate { position: relative; display: flex; align-items: center; justify-content: center; width: min(460px,82vw); aspect-ratio: 1; padding: 15px; border: 7px solid #22120b; border-radius: 50%; background: linear-gradient(145deg,#fff,#fff8f0 65%,#e7d3c5); box-shadow: 0 28px 55px rgba(0,0,0,.72),inset 0 2px 8px #fff,inset 0 -9px 18px rgba(178,112,75,.22),0 0 0 3px rgba(245,158,11,.14); }
+.culinary-plate>div:first-of-type { width: 100%; height: 100%; }.culinary-quadrant { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 20px; border: 1px solid #ead5c6; color: #28150d; background: rgba(255,252,247,.94); box-shadow: inset 0 0 24px rgba(217,151,102,.07); transition: transform .2s ease,background .2s ease,box-shadow .2s ease; cursor: pointer; }
+.culinary-quadrant:hover { z-index: 2; transform: scale(1.025); background: #fff5e8; box-shadow: inset 0 0 30px rgba(245,158,11,.14),0 8px 18px rgba(70,32,12,.12); }.culinary-quadrant-icon { display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 4px; border-radius: 50%; background: #f9e9df; font-size: 15px; }
+.culinary-quadrant-title { font-family: Georgia,serif; font-size: 13px; font-weight: 800; }.culinary-quadrant-detail { display: -webkit-box; max-width: 136px; overflow: hidden; margin-top: 3px; color: #806f64; font-size: 8px; line-height: 1.3; -webkit-box-orient: vertical; -webkit-line-clamp: 2; white-space: normal; }.culinary-quadrant-detail.accent { color: #c96512; }.culinary-quadrant-detail.success { color: #08765b; }
+.culinary-plate-center { position: absolute; display: grid; place-items: center; width: 52px; height: 52px; border: 4px solid #fff5eb; border-radius: 50%; color: #281207; background: #f5a300; box-shadow: 0 0 0 3px #4a2b1c,0 8px 18px rgba(0,0,0,.4); pointer-events: none; }
+.culinary-cutlery { position: absolute; top: 50%; width: 46px; height: 210px; transform: translateY(-50%); opacity: .75; filter: drop-shadow(0 6px 7px rgba(0,0,0,.55)); }.culinary-fork { left: 6px; }.culinary-knife { right: 7px; }.culinary-cutlery b { position: absolute; left: 20px; top: 38px; width: 7px; height: 165px; border-radius: 99px; background: linear-gradient(90deg,#8d8d8d,#f3f3f3 45%,#9b9b9b); }
+.culinary-fork i { position: absolute; top: 5px; width: 4px; height: 47px; border-radius: 99px; background: linear-gradient(90deg,#929292,#f8f8f8); }.culinary-fork i:nth-child(1){left:11px}.culinary-fork i:nth-child(2){left:19px}.culinary-fork i:nth-child(3){left:27px}.culinary-fork i:nth-child(4){left:35px}.culinary-knife i { position: absolute; top: 5px; left: 9px; width: 28px; height: 92px; border-radius: 90% 15% 30% 70%; background: linear-gradient(90deg,#909090,#f6f6f6 65%,#888); }
+.culinary-workspace-frame { position: relative; width: min(940px,100%); padding: 10px; border: 1px solid rgba(245,158,11,.42); border-radius: 26px; background: #28140b; box-shadow: 0 28px 70px rgba(0,0,0,.58),0 0 0 5px rgba(33,16,8,.8),0 0 0 7px rgba(245,158,11,.12); transition: width .28s ease,border-radius .28s ease; }.culinary-workspace-frame.culinary-mode-mobile { width: min(390px,100%); padding: 10px; border-radius: 38px; }.culinary-workspace-frame.culinary-mode-desktop { width: min(940px,100%); }
+.culinary-workspace-surface { overflow: hidden; height: min(650px,calc(100vh - 190px)); min-height: 500px; border-radius: 17px; color: #2a150d; background: #fffaf5; }.culinary-mode-mobile .culinary-workspace-surface { border-radius: 28px; }.culinary-device-notch { display: none; position: absolute; z-index: 4; top: 5px; left: 50%; width: 68px; height: 14px; transform: translateX(-50%); border-radius: 0 0 10px 10px; background: #160b06; }.culinary-mode-mobile .culinary-device-notch { display: block; }.culinary-device-notch span { display: block; width: 22px; height: 3px; margin: 3px auto 0; border-radius: 99px; background: #584035; }
+.culinary-screen-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 52px; gap: 10px; padding: 9px 14px; border-bottom: 1px solid #f0dfd4; background: rgba(255,250,245,.96); }.culinary-screen-header button { display: inline-flex; align-items: center; gap: 5px; justify-self: start; padding: 7px 11px; border: 0; border-radius: 999px; color: #fff8f2; background: #2b160d; font-size: 10px; font-weight: 800; cursor: pointer; }.culinary-screen-header span { color: #198a6d; font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }.culinary-screen-header strong { justify-self: end; padding: 6px 10px; border: 1px solid #efbc72; border-radius: 999px; color: #bd5d13; font-size: 9px; letter-spacing: .05em; text-transform: uppercase; }
+.culinary-workspace-scroll { height: calc(100% - 52px); overflow: auto; padding: 18px; background: #fffaf5; }.culinary-shell-footer { display: flex; justify-content: space-between; gap: 20px; min-height: 48px; padding-top: 13px; border-top: 1px solid rgba(245,158,11,.12); color: #9d887b; font-size: 8px; }.culinary-shell-footer span:last-child { color: #f3a617; }
+
+@media (max-width:700px) {
+  .culinary-shell-inner { width: min(100% - 18px,1180px); }.culinary-brand-bar { align-items: flex-start; padding: 14px 0; }.culinary-brand small,.culinary-audio-button span,.culinary-mode-switch button span { display: none; }.culinary-mode-switch button,.culinary-audio-button { width: 28px; padding: 0; }.culinary-main-stage { padding-top: 18px; }.culinary-plate-wrap { min-height: 375px; }.culinary-plate { width: min(335px,88vw); padding: 11px; border-width: 5px; }.culinary-quadrant { padding: 12px; }.culinary-quadrant-title { font-size: 11px; }.culinary-plate-wrap[data-plate-mode="auto"] .culinary-cutlery { display: none; }.culinary-screen-header { grid-template-columns: auto 1fr; padding: 10px 12px; }.culinary-screen-header span { display: none; }.culinary-screen-header strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.culinary-workspace-scroll { padding: 12px; }.culinary-shell-footer { flex-direction: column; gap: 4px; }
+}
+@media (max-width:640px) { .culinary-mode-auto { width: min(390px,100%); border-radius: 38px; }.culinary-mode-auto .culinary-device-notch { display: block; }.culinary-mode-auto .culinary-workspace-surface { border-radius: 28px; } }
+
+/* Live views inherit the reference workspace instead of drawing a second page shell. */
+.culinary-workspace-scroll > div,
+.culinary-workspace-scroll > section,
+.culinary-workspace-scroll > article { border-radius: 0 !important; box-shadow: none !important; }
+.culinary-view { min-height: 100%; color: #2a160e; background: #fffaf5; }
+.culinary-view-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 12px; }
+.culinary-view-heading h2 { margin: 3px 0 0; font-family: Georgia,serif; font-size: clamp(22px,3vw,34px); line-height: 1.05; }
+.culinary-eyebrow { color: #c45c12; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.culinary-score { flex: 0 0 auto; padding: 7px 10px; border: 1px solid #edc48b; border-radius: 999px; color: #b65312; background: #fff8ec; font-size: 10px; font-weight: 800; }
+.culinary-stat-row { display: grid; grid-template-columns: repeat(3,1fr); overflow: hidden; margin: 12px 0; border: 1px solid #eadfd7; border-radius: 14px; background: #fff; }
+.culinary-stat-row>div { padding: 12px; text-align: center; border-right: 1px solid #eee4dd; }.culinary-stat-row>div:last-child { border-right: 0; }.culinary-stat-row small,.culinary-portion-row small { display: block; color: #8b7669; font-size: 8px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }.culinary-stat-row strong { display: block; margin-top: 3px; color: #176d57; font-size: 13px; }
+.culinary-portion-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding: 10px 12px; border-radius: 12px; background: #f7eee8; }.culinary-portion-row strong { display: block; margin-top: 2px; font-family: Georgia,serif; }.culinary-stepper { display: flex; gap: 6px; }.culinary-stepper button { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #dfcabd; border-radius: 50%; color: #8e3b0d; background: #fff; cursor: pointer; }
+.culinary-detail-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 12px; }.culinary-detail-grid>section { padding: 14px; border: 1px solid #eadfd7; border-radius: 14px; background: #fff; }.culinary-detail-grid h3 { margin: 0 0 10px; font-family: Georgia,serif; font-size: 14px; }.culinary-ingredient-list>div { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid #f1e8e2; font-size: 10px; }.culinary-ingredient-list>div:last-child { border-bottom: 0; }.culinary-ingredient-list strong { text-align: right; color: #176d57; }
+.culinary-steps { margin: 0; padding: 0; list-style: none; }.culinary-steps li { display: flex; gap: 8px; margin-bottom: 8px; font-size: 10px; line-height: 1.45; }.culinary-steps li>span { display: grid; place-items: center; flex: 0 0 21px; height: 21px; border-radius: 50%; color: #a9480d; background: #fae7da; font-weight: 800; }.culinary-steps p { margin: 2px 0 0; }
+.culinary-view-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }.culinary-primary-action,.culinary-secondary-action,.culinary-link-action { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 34px; padding: 0 13px; border: 0; border-radius: 999px; font-size: 10px; font-weight: 800; text-decoration: none; cursor: pointer; }.culinary-primary-action { color: #fff; background: #d85c12; }.culinary-secondary-action { color: #fff; background: #2a160e; }.culinary-link-action { border: 1px solid #dccbc0; color: #69483a; background: #fff; }
+.culinary-view-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 360px; text-align: center; }.culinary-view-empty h3 { margin: 12px 0 4px; font-family: Georgia,serif; font-size: 24px; }.culinary-view-empty p { max-width: 430px; color: #7c6d64; font-size: 12px; }.culinary-empty-icon { font-size: 38px; }
+
+[data-device-mode="mobile"] .culinary-workspace-scroll { padding: 11px; }
+[data-device-mode="mobile"] .culinary-workspace-scroll .p-6,
+[data-device-mode="mobile"] .culinary-workspace-scroll .p-8,
+[data-device-mode="mobile"] .culinary-workspace-scroll .md\:p-8 { padding: 12px !important; }
+[data-device-mode="mobile"] .culinary-workspace-scroll .grid { grid-template-columns: 1fr !important; }
+[data-device-mode="mobile"] .culinary-detail-grid { grid-template-columns: 1fr; }
+[data-device-mode="mobile"] .culinary-view-heading h2 { font-size: 22px; }
+[data-device-mode="mobile"] .culinary-view-actions>* { width: 100%; }
+
+@media (max-width:640px) {
+  [data-device-mode="auto"] .culinary-workspace-scroll .grid { grid-template-columns: 1fr !important; }
+  [data-device-mode="auto"] .culinary-detail-grid { grid-template-columns: 1fr; }
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}

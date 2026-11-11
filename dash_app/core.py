@@ -18,6 +18,28 @@ def canonical(value):
     s=re.sub(r'\s+',' ',str(value).strip().lower())
     return s
 
+def ingredient_tokens(value):
+    return [word[:-1] if len(word)>3 and word.endswith('s') and not word.endswith(('ss','us','is')) else word
+            for word in re.findall(r"[a-z0-9]+",canonical(value))]
+
+def ingredient_name_matches(name, pantry_name):
+    name_words=ingredient_tokens(name); pantry_words=ingredient_tokens(pantry_name)
+    if not pantry_words:return False
+    return any(name_words[i:i+len(pantry_words)]==pantry_words
+               for i in range(len(name_words)-len(pantry_words)+1))
+
+
+def contains_exclusion(names, exclusions):
+    # Compare whole ingredient words, tolerating common regular plurals and prep notes.
+    # This is conservative label matching, not an allergy/hidden-ingredient guarantee.
+    def tokens(value):
+        return [w[:-1] if len(w)>3 and w.endswith('s') and not w.endswith(('ss','us','is')) else w
+                for w in re.findall(r"[a-z0-9]+",canonical(value))]
+    names=[tokens(name) for name in names]
+    for excluded in exclusions:
+        words=tokens(excluded)
+        if words and any(any(name[i:i+len(words)]==words for i in range(len(name)-len(words)+1)) for name in names):return True
+    return False
 
 def ensure_current():
     if not DB.is_file():raise RuntimeError('PDF catalog is not built. Run scripts/ingest_pdfs.py first.')
@@ -64,11 +86,15 @@ def get_recipe_details(recipe_id):
 
 
 def ingredient_match(recipe, pantry):
-    required={canonical(i['name']) for i in recipe['ingredients']}
-    available={canonical(p) for p in pantry}
-    matched=sorted(required & available); missing=sorted(required-available)
+    required=sorted({canonical(i['name']) for i in recipe['ingredients']})
+    available=sorted({canonical(p) for p in pantry})
+    matched=[name for name in required if any(ingredient_name_matches(name,item) for item in available)]
+    missing=[name for name in required if name not in matched]
+    pantry_matched=[item for item in available if any(ingredient_name_matches(name,item) for name in required)]
     return {'matched':matched,'missing':missing,'matched_count':len(matched),'required_count':len(required),
-            'match_percent':round(100*len(matched)/len(required),2) if required else None}
+            'match_percent':round(100*len(matched)/len(required),2) if required else None,
+            'pantry_matched':pantry_matched,'pantry_count':len(available),
+            'pantry_match_percent':round(100*len(pantry_matched)/len(available),2) if available else None}
 
 
 def scale_recipe(recipe, servings):
@@ -115,7 +141,6 @@ def search_recipes(request):
     sql='SELECT record FROM recipes WHERE 1=1';params=[]
     if q['diet']=='vegetarian':sql+=' AND vegetarian=1'
     if q['max_sodium_mg'] is not None:sql+=' AND sodium IS NOT NULL AND sodium<=?';params.append(q['max_sodium_mg'])
-    sql+=' AND EXISTS (SELECT 1 FROM ingredients i WHERE i.recipe_id=recipes.id AND i.name IN ('+','.join('?' for _ in q['ingredients'])+'))';params.extend(q['ingredients'])
     if q['exclusions']:
         sql+=' AND NOT EXISTS (SELECT 1 FROM ingredients i WHERE i.recipe_id=recipes.id AND i.name IN ('+','.join('?' for _ in q['exclusions'])+'))';params.extend(q['exclusions'])
     with closing(sqlite3.connect(DB)) as c:rows=[json.loads(row[0]) for row in c.execute(sql,params)]
@@ -123,7 +148,7 @@ def search_recipes(request):
         if not preparation_complete(r):continue
         if q['diet']=='vegetarian' and r['vegetarian'] is not True: continue
         names={canonical(i['name']) for i in r['ingredients']}
-        if names & set(q['exclusions']): continue
+        if contains_exclusion(names,q['exclusions']): continue
         if q['max_sodium_mg'] is not None and (r['sodium_mg_per_serving'] is None or r['sodium_mg_per_serving']>q['max_sodium_mg']): continue
         m=ingredient_match(r,q['ingredients'])
         if m['matched_count']==0: continue
@@ -132,19 +157,23 @@ def search_recipes(request):
                        'scaled_ingredients':scale_recipe(r,q['servings']),
                        'batch_sodium_mg':round(r['sodium_mg_per_serving']*q['servings'],2) if r['sodium_mg_per_serving'] is not None else None,
                        'quantity_sufficiency':'not_assessed_without_pantry_amounts'})
-    return sorted(results,key=lambda r:(-r['match_percent'],r['id']))
+    return sorted(results,key=lambda r:r['id'])
 
+
+def recipe_evidence(recipe):
+    ids=recipe.get('source_page_ids') or [recipe['source_id']]
+    return '\n'.join(read_pdf_page(pid)['text'] for pid in dict.fromkeys(ids))
 
 def validate_results(results,request):
     """Recheck canonical facts; valid IDs alone do not establish factual support."""
     q=validate_request(request); issues=[]
-    def normalized(text):return ' '.join(str(text).split())
+    from .ingestion import normalized
     for r in results:
         original=get_recipe_details(r['id'])
         if not preparation_complete(original):issues.append('Recipe lacks complete preparation details')
         for field in ['source_id','pdf_page','source_version','sodium_mg_per_serving','base_servings','steps']:
             if r[field]!=original[field]: issues.append(f"{r['id']}: unsupported {field}")
-        evidence=read_pdf_page(original['source_id'])['text']
+        evidence=recipe_evidence(original)
         if normalized(original['title']) not in normalized(evidence):issues.append('Recipe title lacks PDF evidence')
         for i in original['ingredients']:
             if not i.get('evidence') or normalized(i['evidence']) not in normalized(evidence):issues.append('Ingredient lacks PDF evidence')
@@ -152,8 +181,9 @@ def validate_results(results,request):
             if normalized(step) not in normalized(evidence):issues.append('Cooking step lacks PDF evidence')
         if r['ingredients']!=original['ingredients']:issues.append('Changed source ingredients')
         if q['diet']=='vegetarian' and original['vegetarian'] is not True: issues.append('dietary violation')
-        if {i['name'] for i in original['ingredients']} & set(q['exclusions']): issues.append('excluded ingredient')
+        if contains_exclusion([i['name'] for i in original['ingredients']],q['exclusions']): issues.append('excluded ingredient')
         if r['scaled_ingredients']!=scale_recipe(original,q['servings']): issues.append('scaling mismatch')
         if r['match_percent']!=ingredient_match(original,q['ingredients'])['match_percent']: issues.append('percentage mismatch')
+        if r['pantry_match_percent']!=ingredient_match(original,q['ingredients'])['pantry_match_percent']: issues.append('pantry percentage mismatch')
         if r['batch_sodium_mg']!=(round(original['sodium_mg_per_serving']*q['servings'],2) if original['sodium_mg_per_serving'] is not None else None): issues.append('nutrition arithmetic mismatch')
     return issues
