@@ -1,0 +1,79 @@
+[
+  {
+    "file": "source_pdfs/Your Guide to Lowering Your Blood Pressure With DASH.pdf",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/06-4082.pdf",
+    "sha256": "a950723fa1047238ecf843723668c1bcae1f4ff4ee0722e475470211fbcc415d",
+    "downloaded_utc": "2026-11-07T07:14:53.388143+00:00",
+    "kind": "DASH recipe/guidance PDF",
+    "reuse_policy": "https://www.nhlbi.nih.gov/about/contact/trademark-branding-and-logo",
+    "reuse_basis": "NHLBI public-domain policy, subject to stated exceptions; original PDF retained unchanged with attribution; no endorsement claim",
+    "role": "active recipe and guidance source"
+  },
+  {
+    "file": "source_pdfs/A Week With the DASH Eating Plan.pdf",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/WeekOnDASH.pdf",
+    "sha256": "9853d66dbaae3a105be7f25985b66dfd101ff84a193c147e2eda344e97e8bf3b",
+    "downloaded_utc": "2026-11-07T07:14:53.391140+00:00",
+    "kind": "DASH recipe/guidance PDF",
+    "reuse_policy": "https://www.nhlbi.nih.gov/about/contact/trademark-branding-and-logo",
+    "reuse_basis": "NHLBI public-domain policy, subject to stated exceptions; original PDF retained unchanged with attribution; no endorsement claim",
+    "role": "active recipe and guidance source"
+  },
+  {
+    "file": "source_pdfs/Deliciously Healthy Dinners.pdf",
+    "kind": "official heart-healthy recipe PDF",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/10-2921.pdf",
+    "landing_url": "https://www.nhlbi.nih.gov/resources/keep-beat-recipes-deliciously-healthy-dinners",
+    "sha256": "dd231614d9ffcd982338104329d0410fb6c2493ffe320ab98d952ad2c9d0acc7",
+    "checked_utc": "2026-11-09T07:26:02.227648+00:00",
+    "reuse_policy": "https://www.nhlbi.nih.gov/about/contact/trademark-branding-and-logo",
+    "reuse_basis": "NHLBI public-domain policy subject to exceptions. No separate copyright restriction found in extracted publication text. Original publication unchanged; attribution required; no endorsement or logo reuse.",
+    "role": "Source for screened active recipes and held candidates; not automatically DASH-certified"
+  },
+  {
+    "file": "source_pdfs/Deliciously Healthy Family Meals.pdf",
+    "kind": "official heart-healthy recipe PDF",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/10-7531.pdf",
+    "landing_url": "https://www.nhlbi.nih.gov/resources/keep-beat-recipes-deliciously-healthy-family-meals",
+    "sha256": "5d60aa181465d5cc286c3518aaef2f0b7c10afcb9ad0d8ff8951dcae66b6354e",
+    "checked_utc": "2026-11-09T07:26:02.227648+00:00",
+    "reuse_policy": "https://www.nhlbi.nih.gov/about/contact/trademark-branding-and-logo",
+    "reuse_basis": "NHLBI public-domain policy subject to exceptions. No separate copyright restriction found in extracted publication text. Original publication unchanged; attribution required; no endorsement or logo reuse.",
+    "role": "Source for screened active recipes and held candidates; not automatically DASH-certified"
+  },
+  {
+    "file": "source_pdfs/Delicious Heart-Healthy Latino Recipes.pdf",
+    "kind": "official heart-healthy recipe PDF",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/Your_Heart_Your_Life_Recipe_Book.pdf",
+    "landing_url": "https://www.nhlbi.nih.gov/resources/delicious-heart-healthy-latino-recipes-book-platillos-latinos-sabrosos-y-saludables",
+    "sha256": "bbf53fc75080bff9ffcf1c12c74aadc1e92530e19bd1a488c53e7621993094ad",
+    "checked_utc": "2026-11-09T07:26:02.227648+00:00",
+    "reuse_policy": "https://www.nhlbi.nih.gov/about/contact/trademark-branding-and-logo",
+    "reuse_basis": "NHLBI public-domain policy subject to exceptions. No separate copyright restriction found in extracted publication text. Original publication unchanged; attribution required; no endorsement or logo reuse.",
+    "role": "Source for screened active recipes and held candidates; not automatically DASH-certified"
+  },
+  {
+    "foods_imported": 7793,
+    "data_type": "SR Legacy",
+    "release": "2018-04",
+    "sha256": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef",
+    "source_url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+    "kind": "official food nutrient dataset",
+    "reuse_policy": "https://fdc.nal.usda.gov/api-guide/#bkmk-9",
+    "license": "CC0-1.0",
+    "checked_utc": "2026-11-09T07:26:02.227648+00:00",
+    "role": "food nutrient lookup; not automatically matched to recipe ingredients"
+  },
+  {
+    "foods_imported": 424,
+    "data_type": "Foundation",
+    "release": "2026-10-29",
+    "sha256": "dd414cc9f1a132626bad354ef6655972c78b44aff14f16114dc899708663c579",
+    "source_url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-10-29.zip",
+    "kind": "official food nutrient dataset",
+    "reuse_policy": "https://fdc.nal.usda.gov/api-guide/#bkmk-9",
+    "license": "CC0-1.0",
+    "checked_utc": "2026-11-09T07:26:02.227648+00:00",
+    "role": "food nutrient lookup; not automatically matched to recipe ingredients"
+  }
+]

@@ -8,8 +8,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
       - run: python scripts/agent_evaluate.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - run: pnpm install --frozen-lockfile
+        working-directory: UI
+      - run: pnpm test
+        working-directory: UI
+      - run: pnpm build
+        working-directory: UI
       - uses: actions/upload-artifact@v4
         with:
           name: agent-controller-evaluation

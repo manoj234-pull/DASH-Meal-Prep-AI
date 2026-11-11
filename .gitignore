@@ -1,4 +1,4 @@
-# Credentials: commit only the blank template.
+# Secrets
 .env
 .env.*
 !.env.example
@@ -6,7 +6,7 @@
 *.key
 credentials.json
 
-# Local Python environments and caches
+# Python environments and caches
 .venv/
 venv/
 __pycache__/
@@ -16,27 +16,24 @@ __pycache__/
 .ruff_cache/
 .ipynb_checkpoints/
 
-# Generated databases, PDF-derived data, and runtime reports
+# Local plans, working databases, reports, and downloads
 *.sqlite*
+!data/pdf_catalog.sqlite
 *.db
 *.db-*
 reports/
 *.log
 *.jsonl
+data/backups/
+data/source_downloads/
+data/recipe_candidates/
 
-# Ignore PDFs except the two official source publications below
-*.pdf
-
-# Local editor / OS settings
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-Desktop.ini
-
-# Build, coverage, and temporary exports
+# Frontend dependencies and temporary builds
+node_modules/
 build/
 dist/
+!UI/dist/
+!UI/dist/**
 *.egg-info/
 .coverage
 htmlcov/
@@ -44,10 +41,24 @@ htmlcov/
 *.bak
 *.tmp
 
-# Superseded design illustrations; keep the implemented architecture image
-/dash-database-explained.png
-/dash-lightweight-prototype.png
-
-# Only the approved original publications are included. Other PDFs stay ignored.
+# PDFs are private by default; only approved NHLBI sources are public
+*.pdf
 !source_pdfs/Your Guide to Lowering Your Blood Pressure With DASH.pdf
 !source_pdfs/A Week With the DASH Eating Plan.pdf
+!source_pdfs/Delicious Heart-Healthy Latino Recipes.pdf
+!source_pdfs/Deliciously Healthy Dinners.pdf
+!source_pdfs/Deliciously Healthy Family Meals.pdf
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local collaboration and design-working files
+AGENTS.md
+COMMUNICATION_GUIDE.md
+docs/superpowers/
+UI/ExampleDesigns/
+

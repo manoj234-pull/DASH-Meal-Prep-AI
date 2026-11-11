@@ -10,5 +10,20 @@
     "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/WeekOnDASH.pdf",
     "sha256": "9853d66dbaae3a105be7f25985b66dfd101ff84a193c147e2eda344e97e8bf3b",
     "downloaded_utc": "2026-11-07T07:14:53.391140+00:00"
+  },
+  {
+    "file": "Deliciously Healthy Dinners.pdf",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/10-2921.pdf",
+    "sha256": "dd231614d9ffcd982338104329d0410fb6c2493ffe320ab98d952ad2c9d0acc7"
+  },
+  {
+    "file": "Deliciously Healthy Family Meals.pdf",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/10-7531.pdf",
+    "sha256": "5d60aa181465d5cc286c3518aaef2f0b7c10afcb9ad0d8ff8951dcae66b6354e"
+  },
+  {
+    "file": "Delicious Heart-Healthy Latino Recipes.pdf",
+    "source_url": "https://www.nhlbi.nih.gov/sites/default/files/publications/Your_Heart_Your_Life_Recipe_Book.pdf",
+    "sha256": "bbf53fc75080bff9ffcf1c12c74aadc1e92530e19bd1a488c53e7621993094ad"
   }
 ]

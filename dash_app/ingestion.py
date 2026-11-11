@@ -6,11 +6,44 @@ from contextlib import closing
 from .core import ROOT
 from .providers import load_env,nebius
 
-def normalized(text):return re.sub(r'\s+([.,;:])',r'\1',' '.join(str(text or '').split()))
+def normalized(text):
+    text=re.sub(r'[\u02da\u00ba](?=\s*[FC]\b)', '\u00b0', str(text or ''))
+    text=re.sub(r'\s*([\u2013\u2014])\s*',r'\1',text)
+    text=re.sub(r'(?<=[A-Za-z])-\s+(?=[A-Za-z])','-',text)
+    return re.sub(r'\s+([.,;:])',r'\1',' '.join(text.split()))
+
+def extract_page_text(page, *, use_text_flow=False):
+    """Read upright text; separate a whole number from a smaller raised numerator.
+
+    Uses PDF character geometry, not recipe-specific substitutions. The original
+    publication is unchanged. A smaller numerator touching a full-size digit is
+    a mixed fraction; an ordinary same-size 11/2 is not silently rewritten.
+    """
+    import pdfplumber
+    chars=[dict(c) for c in page.chars if c.get('upright',True)]
+    for i,c in enumerate(chars):
+        if not c['text'].isdigit():continue
+        previous=chars[i-1] if i else None
+        following=chars[i+1] if i+1<len(chars) else None
+        if (previous and following and previous['text'].isdigit()
+            and following['text']=='/' and c['size']<previous['size']*.8
+            and abs(c['x0']-previous['x1'])<2
+            and abs(c['top']-previous['top'])<previous['size']*.5):
+            c['text']=' '+c['text']
+    if use_text_flow:
+        return pdfplumber.utils.text.chars_to_textmap(chars,use_text_flow=True,x_tolerance=1,y_tolerance=3).as_string
+    return pdfplumber.utils.extract_text(chars,y_tolerance=5) or ''
+
 def quantity(text):
     if text is None:return None
-    text=str(text).strip().replace('½',' 1/2').replace('¼',' 1/4').replace('¾',' 3/4')
-    if not re.fullmatch(r'\d+(?:\.\d+)?(?:\s+\d+/\d+|/\d+)?',text.strip()):return None
+    import unicodedata
+    parts=[]
+    for char in str(text).strip():
+        if 'VULGAR FRACTION' in unicodedata.name(char,''):
+            parts.append(' '+str(Fraction(unicodedata.numeric(char)).limit_denominator(100)))
+        else:parts.append(char)
+    text=''.join(parts).strip()
+    if not re.fullmatch(r'\d+(?:\.\d+)?(?:\s+\d+/\d+|/\d+)?',text):return None
     try:return float(sum(Fraction(p) for p in text.split()))
     except (ValueError,ZeroDivisionError):return None
 
@@ -25,8 +58,33 @@ def schema(conn):
     CREATE TABLE IF NOT EXISTS extraction_pages(page_id TEXT PRIMARY KEY,status TEXT,detail TEXT);
     """)
 
+def source_nutrients(block):
+    # Labels/units are schema, never recipe values. Values come from this recipe's table.
+    labels={'calcium_mg':'Calcium','magnesium_mg':'Magnesium','potassium_mg':'Potassium','sodium_mg':'Sodium','calories_kcal':'Calories','fiber_g':'Fiber','protein_g':'Protein','total_fat_g':'Total Fat','saturated_fat_g':'Saturated Fat','carbohydrate_g':'Carbohydrate'}
+    table=block.split('Makes ',1)[-1];result={}
+    for key,label in labels.items():
+        m=re.search(r'\b'+re.escape(label)+r'\s+(<?\d+(?:\.\d+)?)\s*'+('mg' if key.endswith('_mg') else ('g' if key.endswith('_g') else '')),table)
+        if m:result[key]={'value':float(m[1].lstrip('<')),'qualifier':'less_than' if m[1].startswith('<') else 'equal','evidence':m[0]}
+    return result
+
+def source_steps(block):
+    if 'Makes ' not in block:return []
+    method=block.split('Makes ',1)[0]
+    matches=list(re.finditer(r'(?m)^\s*(\d+)\.\s+',method))
+    if not matches or [int(m[1]) for m in matches]!=list(range(1,len(matches)+1)):return []
+    return [normalized(method[m.end():matches[i+1].start() if i+1<len(matches) else len(method)]) for i,m in enumerate(matches)]
+
+def recipe_block(text,title):
+    lines=text.splitlines()
+    start=next((i for i,line in enumerate(lines) if normalized(line)==normalized(title)),None)
+    if start is None:return text
+    end=next((i for i in range(start+1,len(lines)) if re.fullmatch(r'Day\s+\d+',lines[i].strip())),len(lines))
+    return '\n'.join(lines[start:end])
+
 def validate_recipe(raw,text,source):
-    text=normalized(text)
+    block=recipe_block(text,raw.get('title','')) if isinstance(raw,dict) else text
+    exact_steps=source_steps(block)
+    text=normalized(block)
     def anchored(v):return bool(normalized(v)) and normalized(v) in text
     if not isinstance(raw,dict) or not anchored(raw.get('title')):raise ValueError('Title absent from PDF page')
     ingredients=[]
@@ -36,9 +94,14 @@ def validate_recipe(raw,text,source):
         amount=item.get('quantity_text');unit=item.get('unit') or ''
         if amount is not None and normalized(amount) not in normalized(evidence):raise ValueError('Amount absent from ingredient evidence')
         if unit and unit.lower() not in normalized(evidence).lower():raise ValueError('Unit absent from ingredient evidence')
+        # Source description keeps preparation details that the LLM may omit.
+        description=normalized(evidence)
+        prefix=normalized(str(amount or '')+' '+unit)
+        if prefix and description.lower().startswith(prefix.lower()):
+            name=description[len(prefix):].strip().replace('*','').lower() or name
         ingredients.append({'name':name,'quantity':quantity(amount),'unit':unit,'evidence':normalized(evidence)})
     if not ingredients:raise ValueError('No source-backed ingredients')
-    steps=raw.get('steps',[])
+    steps=exact_steps or raw.get('steps',[])
     if not isinstance(steps,list) or any(not isinstance(x,str) or not anchored(x) for x in steps):raise ValueError('Cooking instruction absent from PDF page')
     def numeric(key):
         value=raw.get(key+'_text');evidence=raw.get(key+'_evidence')
@@ -58,7 +121,7 @@ def validate_recipe(raw,text,source):
     if sodium is None:flags.append('Sodium per serving is not available from the source.')
     flags.append('Automatically extracted from PDF; not independently reviewed by a person.')
     title=normalized(raw['title']);rid='recipe-'+hashlib.sha256((source['id']+title).encode()).hexdigest()[:16]
-    return {'id':rid,'title':title,'source_id':source['id'],'document_id':source['document_id'],'source_file':source['source_file'],'pdf_page':source['page'],'printed_page':None,'source_version':source['sha256'][:12],'source_sha256':source['sha256'],'source_url':'/source/'+source['document_id']+'.pdf#page='+str(source['page']),'base_servings':servings,'sodium_mg_per_serving':sodium,'calories_per_serving':calories,'vegetarian':veg,'vegetarian_reason':raw.get('vegetarian_reason',''),'meal_type':raw.get('meal_type') or 'recipe','ingredients':ingredients,'steps':[normalized(x) for x in steps],'flags':flags,'review_method':'LLM extraction with verbatim evidence checks; human review not completed','field_evidence':{k:raw.get(k+'_evidence') for k in ('servings','sodium','calories')},'quantities_complete':servings is not None and all(i['quantity'] is not None for i in ingredients)}
+    return {'id':rid,'title':title,'source_id':source['id'],'document_id':source['document_id'],'source_file':source['source_file'],'pdf_page':source['page'],'printed_page':None,'source_version':source['sha256'][:12],'source_sha256':source['sha256'],'source_url':'/source/'+source['document_id']+'.pdf#page='+str(source['page']),'base_servings':servings,'sodium_mg_per_serving':sodium,'calories_per_serving':calories,'vegetarian':veg,'vegetarian_reason':raw.get('vegetarian_reason',''),'meal_type':raw.get('meal_type') or 'recipe','ingredients':ingredients,'steps':[normalized(x) for x in steps],'flags':flags,'review_method':'LLM extraction with verbatim evidence checks; human review not completed','field_evidence':{k:raw.get(k+'_evidence') for k in ('servings','sodium','calories')},'nutrition_per_serving':source_nutrients(block),'quantities_complete':servings is not None and all(i['quantity'] is not None for i in ingredients)}
 
 def store_recipe(conn,record):
     conn.execute('INSERT OR REPLACE INTO recipes VALUES (?,?,?,?,?,?)',(record['id'],record['title'],record['vegetarian'],record['meal_type'],record['sodium_mg_per_serving'],json.dumps(record)))
@@ -79,7 +142,7 @@ def extract_batch(pages):
     return [recipes[i] for i in sorted(set(accepted))]
 
 def ingest(folder,database):
-    from pypdf import PdfReader
+    import pdfplumber
     from concurrent.futures import ThreadPoolExecutor,as_completed
     pages=[];failures=[]
     with closing(sqlite3.connect(database)) as conn:
@@ -88,7 +151,7 @@ def ingest(folder,database):
         if not paths:raise ValueError('No PDFs found; refusing to replace the catalog with an empty source folder')
         active={'doc-'+hashlib.sha256(p.read_bytes()).hexdigest()[:16] for p in paths}
         for (old_id,) in conn.execute('SELECT id FROM documents').fetchall():
-            if old_id not in active:
+            if old_id not in active and not conn.execute('SELECT value FROM metadata WHERE key=?',('candidate_document_'+old_id,)).fetchone():
                 old_recipes=[r[0] for r in conn.execute("SELECT id FROM recipes WHERE json_extract(record,'$.document_id')=?",(old_id,))]
                 for rid in old_recipes:
                     conn.execute('DELETE FROM ingredients WHERE recipe_id=?',(rid,));conn.execute('DELETE FROM recipes WHERE id=?',(rid,))
@@ -98,16 +161,18 @@ def ingest(folder,database):
         for path in paths:
             digest=hashlib.sha256(path.read_bytes()).hexdigest();doc='doc-'+digest[:16]
             conn.execute('INSERT OR REPLACE INTO documents VALUES (?,?,?,?)',(doc,path.name,str(path.resolve()),digest))
-            reader=PdfReader(path)
+            reader=pdfplumber.open(path)
             for number,page in enumerate(reader.pages,1):
-                text=normalized(page.extract_text(extraction_mode='layout') or '')+' '+normalized(page.extract_text() or '');pid=doc+'-p'+str(number)
+                text=extract_page_text(page);pid=doc+'-p'+str(number)
                 source={'id':pid,'document_id':doc,'source_file':path.name,'sha256':digest,'page':number,'text':text}
                 conn.execute('INSERT OR REPLACE INTO pages VALUES (?,?,?,?)',(pid,doc,number,text))
+                conn.execute('DELETE FROM chunks WHERE page_id=?',(pid,))
                 # Page-aware chunks; source IDs and page numbers are derived from actual PDFs.
                 for n,start in enumerate(range(0,len(text),1050)):
                     conn.execute('INSERT OR REPLACE INTO chunks VALUES (?,?,?)',(pid+'-c'+str(n),pid,text[start:start+1200]))
                 done=conn.execute('SELECT status FROM extraction_pages WHERE page_id=?',(pid,)).fetchone()
                 if text and (not done or done[0]!='complete'):pages.append(source)
+            reader.close()
             conn.commit()
         batches=[pages[i:i+1] for i in range(0,len(pages),1)]
         with ThreadPoolExecutor(max_workers=3) as pool:

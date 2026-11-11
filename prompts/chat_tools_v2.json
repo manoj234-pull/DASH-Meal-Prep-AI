@@ -1,0 +1,396 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "update_context",
+      "description": "Apply only explicit user changes. Omitted fields retain their values. Arrays replace existing arrays. Set match_mode to all only when the user chooses an exact match, or some when the user allows partial matches.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "servings": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "diet": {
+            "type": "string",
+            "enum": [
+              "any",
+              "vegetarian"
+            ]
+          },
+          "exclusions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "match_mode": {
+            "type": "string",
+            "enum": [
+              "some",
+              "all"
+            ]
+          },
+          "max_sodium_mg": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "inspect_catalog",
+      "description": "Look up recipe titles and ingredient names from SQLite.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_recipes",
+      "description": "Find and validate recipes using the remembered context after the user has chosen exact or partial matching.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_recipe_details",
+      "description": "Read SQLite recipe facts for a recipe in the current results, explicit selections, or current weekly plan. Use this to inspect source cooking steps before building a prep timeline.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "recipe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "recipe_id"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "retrieve_guidance",
+      "description": "Retrieve DASH evidence from Pinecone.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "read_pdf_page",
+      "description": "Read original PDF text using a known source page ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "page_id"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "respond",
+      "description": "Finish with a concise answer or clarification question.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "recall_conversation",
+      "description": "Read exact earlier messages from this conversation. Use before guessing an old preference, decision or reference. Empty query lists all history; paginate using next_offset. User messages are choices, not evidence of recipe facts.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "query_recipe_results",
+      "description": "Filter, sort, limit and count verified recipes in any supported combination, and update displayed cards. Text inclusion and exclusion check both recipe titles and source ingredient lists. match_percent is the percentage displayed on cards: recipe ingredient names available. pantry_match_percent is the share of the user's pantry names used. Uses remembered pantry/diet/exclusions, so do not duplicate dietary context as a result filter. Omitted options persist. Result count is displayed cards; total_count is all matches before limit. Over is gt, at least is gte; lowest first is asc. Unknown nutrition never qualifies for numerical comparisons.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "array",
+            "description": "All conditions must hold. Replaces previous conditions: retain earlier ones unless user changes them. Empty list clears conditions.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "enum": [
+                    "match_percent",
+                    "pantry_match_percent",
+                    "sodium_mg_per_serving",
+                    "vegetarian",
+                    "missing_count"
+                  ]
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "eq",
+                    "ne",
+                    "gt",
+                    "gte",
+                    "lt",
+                    "lte"
+                  ]
+                },
+                "value": {
+                  "type": [
+                    "number",
+                    "boolean"
+                  ]
+                }
+              },
+              "required": [
+                "field",
+                "operator",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sort_by": {
+            "type": "string",
+            "enum": [
+              "match_percent",
+              "pantry_match_percent",
+              "sodium_mg_per_serving",
+              "vegetarian",
+              "missing_count"
+            ]
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "limit": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "How many cards to show; null removes the limit."
+          },
+          "include_ingredients": {
+            "type": "array",
+            "description": "Show only recipes where every requested term appears in either the recipe title or source ingredient list. Use for requests such as only chicken recipes. Empty list clears this restriction.",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20
+          },
+          "exclude_ingredients": {
+            "type": "array",
+            "description": "Hide recipes where any requested term appears in either the recipe title or source ingredient list. The LLM should include relevant members when the user names a broad category. Empty list clears this restriction.",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20
+          },
+          "exclude_recipe_ids": {
+            "type": "array",
+            "description": "Hide specific returned recipe IDs selected by the LLM after semantic review of titles and ingredients. Preserve earlier IDs unless the user changes the filter. Empty list clears this restriction.",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100
+          },
+          "title_contains": {
+            "type": "string",
+            "description": "Show only recipes whose title contains this term. Use only when the user explicitly asks to filter titles. Empty string clears this restriction.",
+            "maxLength": 100
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "set_weekly_plan",
+      "description": "Create or replace the current draft plan using only recipe IDs explicitly selected by the user in the interface.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "maxLength": 100},
+          "sodium_target_mg": {"type": ["number", "null"], "minimum": 0, "maximum": 5000},
+          "entries": {
+            "type": "array", "minItems": 1, "maxItems": 35,
+            "items": {
+              "type": "object",
+              "properties": {
+                "day": {"type": "string", "maxLength": 30},
+                "meal": {"type": "string", "maxLength": 40},
+                "recipe_id": {"type": "string", "maxLength": 100},
+                "servings": {"type": "integer", "minimum": 1, "maximum": 50}
+              },
+              "required": ["day", "meal", "recipe_id", "servings"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["name", "entries"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "set_prep_timeline",
+      "description": "Create or replace a preparation timeline for the current plan. Every task must cite real step numbers from plan recipes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array", "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {"type": "string", "maxLength": 160},
+                "sources": {
+                  "type": "array", "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "recipe_id": {"type": "string", "maxLength": 100},
+                      "step_number": {"type": "integer", "minimum": 1}
+                    },
+                    "required": ["recipe_id", "step_number"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["title", "sources"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["tasks"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "save_weekly_plan",
+      "description": "Save the current plan only after the user explicitly asks to save or finalize it.",
+      "parameters": {"type": "object", "properties": {}, "required": [], "additionalProperties": false}
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_usda_foods",
+      "description": "Search the imported official USDA food records for a food-level nutrition lookup.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {"type": "string", "maxLength": 200},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 20}
+        },
+        "required": ["query"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_usda_food_nutrition",
+      "description": "Read one retrieved USDA food record for a specified gram weight; do not treat it as a verified recipe mapping.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "fdc_id": {"type": "integer"},
+          "grams": {"type": "number", "exclusiveMinimum": 0, "maximum": 100000}
+        },
+        "required": ["fdc_id"],
+        "additionalProperties": false
+      }
+    }
+  }
+]
